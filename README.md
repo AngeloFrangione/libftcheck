@@ -5,3 +5,5 @@ Simple testeur de libft qui utilise des tests externes automatiquement pour lanc
 * Clang Static Analyzer
 * 42FileChecker
 * Libftest
+
+It will also find every (void) as it often uselessly used.
