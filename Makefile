@@ -25,16 +25,16 @@ OBJ=${SOURCE:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rcs $(NAME) $(OBJ)
-	@ranlib $(NAME)
+	ar rcs $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 %.o: %.c $(HEADER)
-	@$(CC) -g -c -Wall -Werror -Wextra -o $@ $<
+	$(CC) -c -Wall -Werror -Wextra -o $@ $<
 
 clean:
-	@/bin/rm -f $(OBJ)
+	/bin/rm -f $(OBJ)
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+	/bin/rm -f $(NAME)
 
 re: fclean all

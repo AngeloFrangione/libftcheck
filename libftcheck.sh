@@ -5,14 +5,19 @@ printf "\e[42m\e[30m  Automated tester by efouille X afrangio  \e[39m\e[49m\n"
 status=$(git status --porcelain | wc | awk {'print $1'})
 if [ $status -gt 0 ]
 then
-	printf "\e[41m\e[30m            REPO CHANGED, ABORT            \e[39m\e[49m\n"
+	printf "\e[41m\e[30m                REPO CHANGED               \e[39m\e[49m\n"
 	git status
-	exit
 fi
 
 printf "\e[32mCreating /tmp/eft working directory\e[39m\n"
 rm -rf /tmp/eft
+mkdir -p /tmp/eft/files
 mkdir -p /tmp/eft/tmp
+
+printf "\e[32mCopying files\e[39m\n"
+cp ./Makefile /tmp/eft/files
+
+printf "\e[32mGoing to working dir\e[39m\n"
 cd /tmp/eft
 
 printf "\e[32m----------\nCloning libft into /tmp/eft/libft\e[39m\n"
@@ -20,7 +25,7 @@ git clone $1 libft
 
 printf "\e[32m----------\nUsing custom Makefile (no bonuses)...\e[39m\n"
 mv /tmp/eft/libft/Makefile /tmp/eft/tmp
-cp ./Makefile /tmp/eft/libft
+cp /tmp/eft/files/Makefile /tmp/eft/libft
 
 printf "\e[32m----------\nDownloading clang static analyzer into /tmp/eft/static_analyzer\e[39m\n"
 curl -o checker-279.tar.bz2 https://clang-analyzer.llvm.org/downloads/checker-279.tar.bz2
@@ -29,7 +34,9 @@ tar jxf checker-279.tar.bz2
 rm -rf checker-279.tar.bz2
 mv checker-279 static_analyzer
 printf "\e[32m----------\nChecking with scan-build...\e[39m\n"
-static_analyzer/bin/scan-build make -C libft
+rm -rf /tmp/eft/reports/*
+/tmp/eft/static_analyzer/bin/scan-build -o /tmp/eft/reports --html-title "efouille X afrangio libftcheck - static analyzer report" --status-bugs make -C libft
+static_analyzer_errors=$(echo $?)
 make -C libft fclean
 
 printf "\e[32m----------\nRestoring original Makefile...\e[39m\n"
@@ -65,4 +72,9 @@ then
 	grep --color -nr "(void)" /tmp/eft/libft
 else
 	printf "\e[32mNo (void) casts found\e[39m\n"
+fi
+
+if [ $static_analyzer_errors -gt 0 ]
+then
+	/tmp/eft/static_analyzer/bin/scan-view /tmp/eft/reports/$(ls /tmp/eft/reports/)
 fi
