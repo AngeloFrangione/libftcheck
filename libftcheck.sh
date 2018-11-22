@@ -4,9 +4,10 @@ print_usage()
 {
 	printf "Usage : libftcheck.sh [options] git_repo (or path if --no_git)\n"
 	printf "\n"
-	printf "options : -s | --no-sa          Ignore Clang Static Analyzer tests\n"
+	printf "options : -r | --reopen-report  Only open previously generated Static Analyzer\n"
+	printf "                                then quits\n"
 	printf "          -d | --no-sa-down     Do not download Clang Static Analyzer\n"
-	printf "          -r | --reopen-report  Do not download Clang Static Analyzer\n"
+	printf "          -s | --no-sa          Ignore Clang Static Analyzer tests\n"
 	printf "          -f | --no-fc          Ignore 42FileChecker tests\n"
 	printf "          -l | --no-lftest      Ignore Libftest tests\n"
 	printf "          -n | --no-clone       Do not clone 42FileChecker nor Libftest\n"
