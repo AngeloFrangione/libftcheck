@@ -4,18 +4,19 @@ Simple testeur de libft qui utilise des tests externes automatiquement pour lanc
 
 Il permet de rapidement mettre le doigt sur des possibles erreurs et d'avoir le temps d'en discuter.
 
-* Clang Static Analyzer
-* 42FileChecker
-* Libftest
+* [Clang Static Analyzer](https://clang-analyzer.llvm.org/)
+* [42FileChecker](https://github.com/jgigault/42FileChecker)
+* [Libftest](https://github.com/jtoty/Libftest)
 
 Il vérifie rapidement à la fin la présence de `(void)` qui, en dehors de prototypes de fonctions, sont souvent utilisés de façon erronée.
 
 ```
 Usage : libftcheck.sh [options] git_repo (or path if --no_git)
 
-options : -s | --no-sa          Ignore Clang Static Analyzer tests
+options : -r | --reopen-report  Only open previously generated Static Analyzer
+                                then quits
           -d | --no-sa-down     Do not download Clang Static Analyzer
-          -r | --reopen-report  Do not download Clang Static Analyzer
+          -s | --no-sa          Ignore Clang Static Analyzer tests
           -f | --no-fc          Ignore 42FileChecker tests
           -l | --no-lftest      Ignore Libftest tests
           -n | --no-clone       Do not clone 42FileChecker nor Libftest
