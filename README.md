@@ -11,7 +11,7 @@ Il permet de rapidement mettre le doigt sur des possibles erreurs et d'avoir le 
 Il vérifie rapidement à la fin la présence de `(void)` qui, en dehors de prototypes de fonctions, sont souvent utilisés de façon erronée.
 
 ```
-Usage : libftcheck.sh [options] git_repo (or path if --no_git)
+Usage : libftcheck.sh [options] git_repo (or path if --no-git)
 
 options : -r | --reopen-report  Only open previously generated Static Analyzer
                                 then quits
